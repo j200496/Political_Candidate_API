@@ -1,6 +1,9 @@
 
 using Candidate;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -9,7 +12,23 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 var origenespermitidos = builder.Configuration.GetValue<string>("OrigenesPermitidos")!.Split(',');
 
 // Add services to the container.
-builder.Services.AddSignalR();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = "Candidate",
+            ValidAudience = "Usuarios",
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes("dsadfasdf$#%$%%$^$^%_@@#@#$%$#^%^$)(*((*12345123456789123456789123456789!!")
+            )
+        };
+    });
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

@@ -39,6 +39,7 @@ namespace Candidate.Controllers
             return Ok(resultado);
         }
 
+    
         [HttpGet("Selectppu")]
         public async Task<ActionResult<IEnumerable<Personas>>> GetPersonasPorUs(int id)
         {
@@ -74,7 +75,7 @@ namespace Candidate.Controllers
         // [Authorize(Roles = "Administrador,Empleado")]
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult<Personas>> PostPersonas([FromBody] CreatePersonas dto)
+        public async Task<ActionResult<Personas>> PostPersonas([FromBody] PersonasDTO dto)
         {
             var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userid == null)
@@ -241,7 +242,7 @@ namespace Candidate.Controllers
         //Metodo para actualizar los datos de la persona
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> PutPersona(int id, [FromBody] CreatePersonas person)
+        public async Task<ActionResult> PutPersona(int id, [FromBody] PersonasDTO person)
         {
             if (id != person.IdPersona) return BadRequest(ModelState);
             var personaexiste = await _dbcontext.Personas.FindAsync(id);

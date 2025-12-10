@@ -21,6 +21,12 @@ namespace Candidate.Controllers
         {
             return await _context.Usuarios.Where(u => u.Borrado == "No").ToListAsync();
         }
+
+        [HttpGet("Equipo")]
+        public async Task<ActionResult<IEnumerable<Usuarios>>> GetEquipo()
+        {
+            return await _context.Usuarios.Where(u => u.Borrado == "No" && u.Rol == "Equipo").ToListAsync();
+        }
         [HttpGet("provincias/{idProvincia}/usuarios")]
         public async Task<IActionResult> GetUsuariosPorProvincia(int idProvincia)
         {

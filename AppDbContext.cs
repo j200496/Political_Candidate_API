@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Candidate.Models;
+using Microsoft.EntityFrameworkCore;
 namespace Candidate
 {
     public class AppDbContext: DbContext
@@ -9,5 +10,25 @@ namespace Candidate
         }
         public DbSet<Personas> Personas { get; set; }
         public DbSet<Provincias> Provincias { get; set; }
+        public DbSet<Usuarios> Usuarios { get; set; }
+        public DbSet<Usuario_Provincia> Usuario_Provincia { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Usuario_Provincia>()
+                .HasKey(up => new { up.IdUsuario, up.IdProvincia });
+
+            modelBuilder.Entity<Usuario_Provincia>()
+                .HasOne(up => up.Usuario)
+                .WithMany()
+                .HasForeignKey(up => up.IdUsuario);
+
+            modelBuilder.Entity<Usuario_Provincia>()
+                .HasOne(up => up.Provincia)
+                .WithMany()
+                .HasForeignKey(up => up.IdProvincia);
+        }
+
+
     }
 }

@@ -1,6 +1,22 @@
 [
   {
-    "ContainingType": "Candidate.PersonasController",
+    "ContainingType": "Candidate.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/Auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Candidate.Models.Login",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Candidate.Controllers.PersonasController",
     "Method": "GetPersonas",
     "RelativePath": "api/Personas",
     "HttpMethod": "GET",
@@ -9,7 +25,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Candidate.Personas, Candidate, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Candidate.Models.Personas, Candidate, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -20,7 +36,7 @@
     ]
   },
   {
-    "ContainingType": "Candidate.PersonasController",
+    "ContainingType": "Candidate.Controllers.PersonasController",
     "Method": "PostPersonas",
     "RelativePath": "api/Personas",
     "HttpMethod": "POST",
@@ -29,13 +45,13 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "Candidate.CreatePersonas",
+        "Type": "Candidate.Dtos.PersonasDTO",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "Candidate.Personas",
+        "Type": "Candidate.Models.Personas",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -46,7 +62,7 @@
     ]
   },
   {
-    "ContainingType": "Candidate.PersonasController",
+    "ContainingType": "Candidate.Controllers.PersonasController",
     "Method": "GetPersona",
     "RelativePath": "api/Personas/{id}",
     "HttpMethod": "GET",
@@ -61,7 +77,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Candidate.Personas",
+        "Type": "Candidate.Models.Personas",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -72,7 +88,7 @@
     ]
   },
   {
-    "ContainingType": "Candidate.PersonasController",
+    "ContainingType": "Candidate.Controllers.PersonasController",
     "Method": "PutPersona",
     "RelativePath": "api/Personas/{id}",
     "HttpMethod": "PUT",
@@ -86,14 +102,14 @@
       },
       {
         "Name": "person",
-        "Type": "Candidate.Personas",
+        "Type": "Candidate.Dtos.PersonasDTO",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Candidate.PersonasController",
+    "ContainingType": "Candidate.Controllers.PersonasController",
     "Method": "DeletePersona",
     "RelativePath": "api/Personas/{id}",
     "HttpMethod": "DELETE",
@@ -109,7 +125,23 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Candidate.PersonasController",
+    "ContainingType": "Candidate.Controllers.PersonasController",
+    "Method": "SetBorrado",
+    "RelativePath": "api/Personas/borrado/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Candidate.Controllers.PersonasController",
     "Method": "Filterperson",
     "RelativePath": "api/Personas/filter",
     "HttpMethod": "GET",
@@ -125,7 +157,69 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Candidate.PersonasController",
+    "ContainingType": "Candidate.Controllers.PersonasController",
+    "Method": "InsertMiembro",
+    "RelativePath": "api/Personas/miembros",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Candidate.Dtos.MiembroDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Candidate.Controllers.PersonasController",
+    "Method": "ListaProvincias",
+    "RelativePath": "api/Personas/Prov",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Candidate.Models.Provincias, Candidate, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Candidate.Controllers.PersonasController",
+    "Method": "GetPersonasPorUs",
+    "RelativePath": "api/Personas/Selectppu",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Candidate.Models.Personas, Candidate, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Candidate.Controllers.PersonasController",
     "Method": "TotalMiembros",
     "RelativePath": "api/Personas/total",
     "HttpMethod": "GET",
@@ -145,16 +239,22 @@
     ]
   },
   {
-    "ContainingType": "Candidate.ProviciasController",
-    "Method": "GetProvincias",
-    "RelativePath": "api/Provicias",
+    "ContainingType": "Candidate.Controllers.PersonasController",
+    "Method": "ToTalMiembrosPorUsuario",
+    "RelativePath": "api/Personas/Totalppu",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Candidate.Provincias, Candidate, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Int32",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -165,22 +265,16 @@
     ]
   },
   {
-    "ContainingType": "Candidate.ProviciasController",
-    "Method": "PostProvincia",
+    "ContainingType": "Candidate.Controllers.ProviciasController",
+    "Method": "GetProvincias",
     "RelativePath": "api/Provicias",
-    "HttpMethod": "POST",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "Candidate.CreateProvincias",
-        "IsRequired": true
-      }
-    ],
+    "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "Candidate.Provincias",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Candidate.Models.Provincias, Candidate, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -189,6 +283,325 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "Candidate.Controllers.ProviciasController",
+    "Method": "PostProvincia",
+    "RelativePath": "api/Provicias",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Candidate.Models.ProvinceDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Candidate.Models.Provincias",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Candidate.Controllers.ProviciasController",
+    "Method": "BorrarProv",
+    "RelativePath": "api/Provicias",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "prov",
+        "Type": "Candidate.Models.Provincias",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Candidate.Controllers.ProviciasController",
+    "Method": "GetoneProv",
+    "RelativePath": "api/Provicias/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Candidate.Models.Provincias",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Candidate.Controllers.ProviciasController",
+    "Method": "AsignarProvincias",
+    "RelativePath": "api/Provicias/asignar-provincias",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Candidate.Dtos.AsignacionDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Candidate.Controllers.ProviciasController",
+    "Method": "GetPropu",
+    "RelativePath": "api/Provicias/Getpropu",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Candidate.Controllers.ProviciasController",
+    "Method": "GetProvasig",
+    "RelativePath": "api/Provicias/Lista-prov/{idUsuario}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idUsuario",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Candidate.Controllers.UsuariosController",
+    "Method": "GetUsuarios",
+    "RelativePath": "api/Usuarios",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Candidate.Models.Usuarios, Candidate, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Candidate.Controllers.UsuariosController",
+    "Method": "Postusuarios",
+    "RelativePath": "api/Usuarios",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "usersdto",
+        "Type": "Candidate.Dtos.Usersdto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Candidate.Models.Usuarios",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Candidate.Controllers.UsuariosController",
+    "Method": "GetUSer",
+    "RelativePath": "api/Usuarios/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Candidate.Models.Usuarios",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Candidate.Controllers.UsuariosController",
+    "Method": "Editar",
+    "RelativePath": "api/Usuarios/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "Candidate.Dtos.Usersdto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Candidate.Controllers.UsuariosController",
+    "Method": "DeleteUser",
+    "RelativePath": "api/Usuarios/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Candidate.Controllers.UsuariosController",
+    "Method": "AsignarProvincia",
+    "RelativePath": "api/Usuarios/asignaciones",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Candidate.Models.Usuario_Provincia",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Candidate.Controllers.UsuariosController",
+    "Method": "AsignarUsuarios",
+    "RelativePath": "api/Usuarios/asignar-usuarios",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Candidate.Dtos.AsignarUsuarios",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Candidate.Controllers.UsuariosController",
+    "Method": "Borrar",
+    "RelativePath": "api/Usuarios/Borrar/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "u",
+        "Type": "Candidate.Models.Usuarios",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Candidate.Controllers.UsuariosController",
+    "Method": "GetEquipo",
+    "RelativePath": "api/Usuarios/Equipo",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Candidate.Models.Usuarios, Candidate, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Candidate.Controllers.UsuariosController",
+    "Method": "GetUsuariosPorProvincia",
+    "RelativePath": "api/Usuarios/provincias/{idProvincia}/usuarios",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idProvincia",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Candidate.Controllers.WeatherForecastController",
