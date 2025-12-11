@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Candidate.Controllers
 {
-    // [Authorize(Roles = "Administrador")]
+    [Authorize(Roles = "Administrador")]
     [ApiController]
     [Route("api/[controller]")]
     public class UsuariosController : ControllerBase

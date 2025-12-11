@@ -7,5 +7,6 @@ namespace Candidate.Dtos
         [Key]
         public int IdProvincia { get; set; }
         public string Nombre { get; set; } = string.Empty;
+        public int Meta {  get; set; }
     }
 }

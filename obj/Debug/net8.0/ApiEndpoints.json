@@ -294,7 +294,7 @@
     "Parameters": [
       {
         "Name": "dto",
-        "Type": "Candidate.Models.ProvinceDto",
+        "Type": "Candidate.Dtos.ProvinciasDto",
         "IsRequired": true
       }
     ],
@@ -375,6 +375,37 @@
   },
   {
     "ContainingType": "Candidate.Controllers.ProviciasController",
+    "Method": "EditProv",
+    "RelativePath": "api/Provicias/Edit{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "Candidate.Dtos.ProvinciasDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Candidate.Dtos.ProvinciasDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Candidate.Controllers.ProviciasController",
     "Method": "GetPropu",
     "RelativePath": "api/Provicias/Getpropu",
     "HttpMethod": "GET",
@@ -403,6 +434,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Candidate.Controllers.ProviciasController",
+    "Method": "GetMiembrosPorProvincia",
+    "RelativePath": "api/Provicias/miembros-por-provincia",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

@@ -20,19 +20,20 @@ namespace Candidate.Controllers
             _dbcontext = appDbContext;
             _configuration = configuration;
         }
-        //Metodo que devuelve la lista de todas las provincias de RD
+        //Metodo que devuelve la lista de todoss los territorios
+       // [Authorize(Roles = "Administrador")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Provincias>>> GetProvincias()
             => await _dbcontext.Provincias.Where(p => p.Borrado == "No").ToListAsync();
 
-
+        [Authorize]
         [HttpGet("Lista-prov/{idUsuario}")]
         public async Task<ActionResult> GetProvasig(int idUsuario)
         {
             var ids = await _dbcontext.Usuario_Provincia.Where(x => x.IdUsuario == idUsuario).Select(x => x.IdProvincia).ToListAsync();
             return Ok(ids);
         }
-
+        [Authorize]
         [HttpGet("Getpropu")]
         public async Task<IActionResult> GetPropu(int id)
         {
@@ -54,7 +55,60 @@ namespace Candidate.Controllers
 
             return Ok(provincias);
         }
+        [HttpGet("miembros-por-provincia")]
+        public async Task<IActionResult> GetMiembrosPorProvincia()
+        {
+            var datos =  await _dbcontext.Provincias.Where(p => p.Borrado == "No").Select(p => new
+            {
+                provincia = p.Nombre,
+                cantidad = _dbcontext.Personas.Count(x => x.IdProvincia == p.IdProvincia && x.Borrado == "No"),
+                meta = p.Meta
+            }).ToListAsync();
 
+            return Ok(datos);
+
+        }
+
+        /* [HttpGet("miembros-por-provincia")]
+         public async Task<IActionResult> GetMiembrosPorProvincia()
+         {
+             var resultado = await _dbcontext.Personas
+                 .Include(p => p.Provincia)
+                 .GroupBy(p => p.Provincia.Nombre)
+                 .Select(g => new
+                 {
+                     Provincia = g.Key,
+                     Cantidad = g.Count()
+
+                 })
+                 .ToListAsync();
+
+             return Ok(resultado);
+         }
+        */
+
+        // [Authorize(Roles = "Administrador")]
+
+        [HttpPut("Edit/{id}")]
+        public async Task<ActionResult<ProvinciasDto>>EditProv(int id, [FromBody] ProvinciasDto dto)
+        {
+            if(id != dto.IdProvincia)
+            {
+                return BadRequest("El ID de la URL y el del cuerpo no coinciden.");
+
+            }
+            var provexist = await _dbcontext.Provincias.FindAsync(id);
+            if(provexist == null)
+            {
+                return NotFound();
+            }
+
+            provexist.Nombre = dto.Nombre;
+            provexist.Meta = dto.Meta;
+            await _dbcontext.SaveChangesAsync();
+            return Ok(provexist);
+
+        }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Provincias>> GetoneProv(int id)
@@ -66,15 +120,16 @@ namespace Candidate.Controllers
             }
             return provincia;
         }
-
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
-        public async Task<ActionResult<Provincias>> PostProvincia([FromBody] ProvinceDto dto)
+        public async Task<ActionResult<Provincias>> PostProvincia([FromBody] ProvinciasDto dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var prov = new Provincias
             {
                 Nombre = dto.Nombre,
+                Meta = dto.Meta
 
             };
             if (prov.IdProvincia > 0)
@@ -90,6 +145,7 @@ namespace Candidate.Controllers
             return CreatedAtAction(nameof(GetProvincias), new { id = prov.IdProvincia }, prov);
         }
 
+        [Authorize(Roles = "Administrador")]
         [HttpPut]
         public async Task<ActionResult> BorrarProv(int id, [FromBody] Provincias prov)
         {
@@ -102,7 +158,7 @@ namespace Candidate.Controllers
             await _dbcontext.SaveChangesAsync();
             return Ok(new { message = "Prov Borrada!" });
         }
-
+        [Authorize(Roles = "Administrador")]
         [HttpPost("asignar-provincias")]
         public IActionResult AsignarProvincias([FromBody] AsignacionDTO dto)
         {
@@ -134,143 +190,7 @@ namespace Candidate.Controllers
                 return BadRequest($"Error al asignar provincias: {ex.Message}");
             }
         }
-
-
-        /* [HttpGet("usuarios/{idUsuario}/provincias")]
-         public async Task<IActionResult> GetProvinciasPorUsuario(int idUsuario)
-         {
-             var provincias = await _dbcontext.Provincias
-                 .FromSqlRaw("EXEC sp_GetProvinciasPorUsuario @IdUsuario={0}", idUsuario)
-                 .ToListAsync();
-
-             return Ok(provincias);
-         }
-         [HttpPost("asignaciones")]
-         public async Task<IActionResult> AsignarProvincia(AsignacionDTO dto)
-         {
-             await _dbcontext.Database.ExecuteSqlRawAsync(
-                 "EXEC sp_AsignarProvincia @IdUsuario={0}, @IdProvincia={1}",
-                 dto.IdUsuario, dto.IdProvincia);
-
-             return Ok("Asignación creada");
-         }
-
-           [HttpGet("miembros-p-provincia")]
-           public async Task<ActionResult<IEnumerable<MiembroProvincias>>> GetMiembrosPprov()
-           {
-               var result = await _dbcontext.Personas.Where(p => p.Borrado == "No").GroupBy(m => m.Provincia).Select(g => new MiembroProvincias
-               {
-                   Provincia = g.Key,
-                   CantidadMiembros = g.Count()
-               }).ToListAsync();
-
-         [HttpGet("filtrar-por-nombre")]
-         public async Task<ActionResult<IEnumerable<Provincias>>> FilterProv([FromQuery] string name)
-         {
-             var filter = await _dbcontext.Provincias.Where(p => p.Nombre.Contains(name)).ToListAsync();
-             if (filter == null)
-             {
-                 return Ok(_dbcontext.Provincias.ToListAsync());
-             }
-             return Ok(filter);
-         }
-       /*  [HttpGet("listar")]
-         public IActionResult ListarProvincias()
-         {
-             try
-             {
-                 var provincias = _dbcontext
-                     .Set<ProvinciasDto>()
-                     .FromSqlRaw("EXEC selprov")
-                     .ToList();
-
-                 return Ok(provincias);
-             }
-             catch (Exception ex)
-             { return BadRequest($"Error al obtener provincias: {ex.Message}");
-
-             }
-         }
-          [HttpGet("listar")]
-        public IActionResult ListarProvincias()
-        {
-            try
-            {
-                var provincias = _dbcontext
-                    .Set<ProvinciasDto>()
-                    .FromSqlRaw("EXEC selprov")
-                    .ToList();
-
-                return Ok(provincias);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Error al obtener provincias: {ex.Message}");
-
-            }
-        }
-
-       /*  
-       [HttpGet("select")]
-         public IActionResult SelectUnaProv(int IdProvincia)
-         {
-             try
-             {
-                 var param = new SqlParameter("@IdProvincia", IdProvincia);
-
-                 var provincia = _dbcontext.Provincia
-                     .FromSqlRaw("EXEC selunaprov @IdProvincia", param)
-                     .AsEnumerable()
-                     .FirstOrDefault();
-
-                 return Ok(provincia);
-             }
-             catch (Exception ex)
-             {
-                 return BadRequest($"Error al obtener provincias: {ex.Message}");
-             }
-
-
-         }
-
-         [HttpPost("{idUsuario}/provincias")]
-         public async Task<IActionResult> AsignarProvincias(
-             int idUsuario, AsignarProvinciasDto dto)
-         {
-             var asignacionesActuales = _dbcontext.Usuarios
-                 .Where(x => x.IdUsuario == idUsuario);
-
-             _dbcontext.Usuario_Provincia.RemoveRange((Usuario_Provincia)asignacionesActuales);
-
-             var nuevasAsignaciones = dto.IdsProvincias.Select(p =>
-                 new Usuario_Provincia
-                 {
-                     IdUsuario = idUsuario,
-                     IdProvincia = p
-                 });
-
-             _dbcontext.Usuario_Provincia.AddRange(nuevasAsignaciones);
-             await _dbcontext.SaveChangesAsync();
-
-             return Ok("Asignaciones actualizadas");
-         }
-
-
-         //Metodo para añadir provincias
-
-
-       [HttpPut]
-       public async Task<ActionResult>BorrarProv(int id, [FromBody] Provincias prov)
-         {
-             var buscarprov = await _dbcontext.Provincias.FindAsync(id);
-             if(buscarprov == null)
-             {
-                 return BadRequest(ModelState);
-             }
-             buscarprov.Borrado = "Si";
-             await _dbcontext.SaveChangesAsync();
-             return Ok(new { message = "Prov Borrada!" });
-         } */
+   
     }
 }
 

@@ -22,7 +22,7 @@ namespace Candidate.Controllers
             _dbcontext = dbcontext;
         }
         // Metodo para devolver la lista de personas donde borrado = No
-        //[Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Administrador")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Personas>>> GetPersonas()
         {
@@ -72,7 +72,7 @@ namespace Candidate.Controllers
             => await _dbcontext.Provincias.Where(p => p.Borrado == "No").ToListAsync();
 
 
-        // [Authorize(Roles = "Administrador,Empleado")]
+      
         [Authorize]
         [HttpPost]
         public async Task<ActionResult<Personas>> PostPersonas([FromBody] PersonasDTO dto)
@@ -107,7 +107,7 @@ namespace Candidate.Controllers
             await _dbcontext.SaveChangesAsync();
             return CreatedAtAction(nameof(GetPersonas), new { id = persona.IdPersona }, persona);
         }
-        //Metodo para devolver una persona por su id
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<Personas>> GetPersona(int id)
         {
@@ -120,6 +120,7 @@ namespace Candidate.Controllers
             return person;
         }
         //Metodo para recolectar la el total de personas 
+        [Authorize(Roles = "Administrador")]
         [HttpGet("total")]
         public async Task<ActionResult<int>> TotalMiembros()
         {
@@ -133,6 +134,8 @@ namespace Candidate.Controllers
                 return StatusCode(500, "Error interno del servidor: " + ex.Message);
             }
         }
+
+        [Authorize(Roles = "Equipo")]
         [HttpGet("Totalppu")]
         public async Task<ActionResult<int>> ToTalMiembrosPorUsuario(int id)
         {
@@ -150,6 +153,7 @@ namespace Candidate.Controllers
         }
 
         //Metodo para filtrar personas por su nombre
+        [Authorize]
         [HttpGet("filter")]
         public async Task<ActionResult> Filterperson([FromQuery] string name)
         {
@@ -164,7 +168,7 @@ namespace Candidate.Controllers
             }
             return Ok(filter);
         }
-
+        [Authorize]
         [HttpPost("miembros")]
         public async Task<IActionResult> InsertMiembro(MiembroDTO dto)
         {
@@ -182,65 +186,10 @@ namespace Candidate.Controllers
 
             return Ok("Miembro registrado");
         }
-
-        /*  [HttpGet("usuarios/{idUsuario}/miembros")]
-          public async Task<IActionResult> GetMiembrosPorUsuario(int idUsuario)
-          {
-              var miembros = await _dbcontext.Miembros
-                  .FromSqlRaw("EXEC sp_GetMiembrosPorUsuario @IdUsuario={0}", idUsuario)
-                  .ToListAsync();
-
-              return Ok(miembros);
-          }
-
-
-           [HttpGet("Filtrar-por-provincia")]
-             public async Task<ActionResult<IEnumerable<Personas>>> Filterperprov([FromQuery] string name)
-             {
-                 var filter = await _dbcontext.Personas.Where(p => p.Provincia.Contains(name)).ToListAsync();
-                 if (filter == null)
-                 {
-                     return Ok(_dbcontext.Personas.ToListAsync());
-                 }
-                 if (name.IsNullOrEmpty())
-                 {
-                     return Ok(_dbcontext.Personas.ToListAsync());
-                 }
-                 return Ok(filter);
-
-             }
-             //Metodo para capturar los datos de las personas
-             [Authorize(Roles = "Administrador,Empleado")]
-             [HttpPost]
-             public async Task<ActionResult<Personas>> PostPersonas([FromBody] CreatePersonas dto)
-             {
-                 if (!ModelState.IsValid) return BadRequest(ModelState);
-
-                 var persona = new Personas
-                 {
-                     IdPersona = dto.IdPersona,
-                     Nombre = dto.Nombre,
-                     Telefono = dto.Telefono,
-                     Direccion = dto.Direccion,
-                     Cedula = dto.Cedula,
-                     IdProvincia = dto.IdProvincia,
-                     IdUsuario = dto.IdUsuario,
-                 };
-                 if (persona.IdPersona > 0)
-                 {
-                     _dbcontext.Entry(persona).State = EntityState.Modified;
-                 }
-                 else
-                 {
-                     _dbcontext.Personas.Add(persona);
-                 }
-
-                 await _dbcontext.SaveChangesAsync();
-                 return CreatedAtAction(nameof(GetPersonas), new { id = persona.IdPersona }, persona);
-             }*/
-
+     
         //Metodo para actualizar los datos de la persona
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult> PutPersona(int id, [FromBody] PersonasDTO person)
         {
@@ -258,7 +207,7 @@ namespace Candidate.Controllers
             await _dbcontext.SaveChangesAsync();
             return Ok();
         }
-
+        [Authorize]
         [HttpPut("borrado/{id}")]
         public async Task<ActionResult> SetBorrado(int id)
         {
@@ -278,6 +227,7 @@ namespace Candidate.Controllers
 
 
         //Metodo para borrar los datos por su id
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeletePersona(int id)
         {
