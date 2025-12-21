@@ -69,10 +69,10 @@ namespace Candidate.Controllers
 
         }
 
-        /* [HttpGet("miembros-por-provincia")]
-         public async Task<IActionResult> GetMiembrosPorProvincia()
+         [HttpGet("miembros-por-prov")]
+         public async Task<IActionResult> GetMiembrosTotalPorProvincia()
          {
-             var resultado = await _dbcontext.Personas
+             var resultado = await _dbcontext.Personas.Where(p => p.Borrado == "No")
                  .Include(p => p.Provincia)
                  .GroupBy(p => p.Provincia.Nombre)
                  .Select(g => new
@@ -85,7 +85,7 @@ namespace Candidate.Controllers
 
              return Ok(resultado);
          }
-        */
+        
 
         // [Authorize(Roles = "Administrador")]
 
@@ -158,7 +158,7 @@ namespace Candidate.Controllers
             await _dbcontext.SaveChangesAsync();
             return Ok(new { message = "Prov Borrada!" });
         }
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         [HttpPost("asignar-provincias")]
         public IActionResult AsignarProvincias([FromBody] AsignacionDTO dto)
         {

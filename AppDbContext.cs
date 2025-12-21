@@ -16,17 +16,18 @@ namespace Candidate
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Usuario_Provincia>()
-                .HasKey(up => new { up.IdUsuario, up.IdProvincia });
+     .HasKey(up => new { up.IdUsuario, up.IdProvincia });
 
             modelBuilder.Entity<Usuario_Provincia>()
                 .HasOne(up => up.Usuario)
-                .WithMany()
+                .WithMany(u => u.UsuarioProvincias)   
                 .HasForeignKey(up => up.IdUsuario);
 
             modelBuilder.Entity<Usuario_Provincia>()
                 .HasOne(up => up.Provincia)
-                .WithMany()
+                .WithMany(p => p.UsuarioProvincias)   
                 .HasForeignKey(up => up.IdProvincia);
+
         }
 
 

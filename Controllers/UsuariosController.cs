@@ -71,7 +71,7 @@ namespace Candidate.Controllers
             var usuario = new Usuarios
             {
                 Usuario = usersdto.Usuario,
-                Contraseña = usersdto.Contraseña,
+                Contraseña =  BCrypt.Net.BCrypt.HashPassword(usersdto.Contraseña),  
                 Rol = usersdto.Rol
 
             };

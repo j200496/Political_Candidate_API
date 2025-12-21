@@ -173,3 +173,4 @@ C:\Users\User\source\repos\Candidate\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\User\source\repos\Candidate\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
 C:\Users\User\source\repos\Candidate\obj\Debug\net8.0\Candidate.sourcelink.json
 C:\Users\User\source\repos\Candidate\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\User\source\repos\Candidate\bin\Debug\net8.0\BCrypt.Net-Next.dll
