@@ -3,8 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\User\\source\\repos\\Candidate\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D804BD88-D083-4DB6-830F-A90DAEAC6B5F}|Candidate.csproj|c:\\users\\user\\source\\repos\\candidate\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D804BD88-D083-4DB6-830F-A90DAEAC6B5F}|Candidate.csproj|solutionrelative:controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D804BD88-D083-4DB6-830F-A90DAEAC6B5F}|Candidate.csproj|c:\\users\\user\\source\\repos\\candidate\\controllers\\personascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D804BD88-D083-4DB6-830F-A90DAEAC6B5F}|Candidate.csproj|solutionrelative:controllers\\personascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D804BD88-D083-4DB6-830F-A90DAEAC6B5F}|Candidate.csproj|c:\\users\\user\\source\\repos\\candidate\\controllers\\proviciascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D804BD88-D083-4DB6-830F-A90DAEAC6B5F}|Candidate.csproj|solutionrelative:controllers\\proviciascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,15 +50,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UsuariosController.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\Candidate\\Controllers\\UsuariosController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UsuariosController.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\Candidate\\Controllers\\UsuariosController.cs",
-              "RelativeToolTip": "Controllers\\UsuariosController.cs",
-              "ViewState": "AgIAADcAAAAAAAAAAAAAAD8AAAAAAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "ProviciasController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\Candidate\\Controllers\\ProviciasController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ProviciasController.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\Candidate\\Controllers\\ProviciasController.cs",
+              "RelativeToolTip": "Controllers\\ProviciasController.cs",
+              "ViewState": "AgIAAEAAAAAAAAAAAAAAAFAAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-18T03:52:43.49Z",
+              "WhenOpened": "2025-12-31T01:12:28.84Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PersonasController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\Candidate\\Controllers\\PersonasController.cs",
+              "RelativeDocumentMoniker": "Controllers\\PersonasController.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\Candidate\\Controllers\\PersonasController.cs",
+              "RelativeToolTip": "Controllers\\PersonasController.cs",
+              "ViewState": "AgIAAIsAAAAAAAAAAAAAAJsAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-31T01:07:42.166Z",
               "EditorCaption": ""
             }
           ]

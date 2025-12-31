@@ -10,6 +10,7 @@ namespace Candidate.Models
         public string Telefono { get; set; } = string.Empty;
         public string Direccion { get; set; } = string.Empty;
         public string Cedula { get; set; } = string.Empty;
+        public char Genero { get; set;} 
         public string Borrado { get; set; } = "No";
         [ForeignKey("Provincia")]
         public int IdProvincia { get; set; }

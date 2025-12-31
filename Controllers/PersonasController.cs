@@ -41,29 +41,24 @@ namespace Candidate.Controllers
 
     
         [HttpGet("Selectppu")]
-        public async Task<ActionResult<IEnumerable<Personas>>> GetPersonasPorUs(int id)
+        public async Task<ActionResult<IEnumerable<PersonasPusuario>>> GetPersonasPorUs(int id)
         {
-            var personas = await _dbcontext.Personas
-         .Include(p => p.Provincia)
-         .Where(p => p.Borrado == "No" && p.IdUsuario == id)
-         .Select(p => new
-         {
-             p.IdPersona,
-             p.Nombre,
-             p.Telefono,
-             p.Direccion,
-             p.Cedula,
-             p.Borrado,
-             p.IdUsuario,
-             Provincia = p.Provincia.Nombre
-         })
-         .ToListAsync();
-
-            if (personas == null)
-            {
+            var personas = await _dbcontext.Personas.Where(p=> p.Borrado == "No" && p.IdUsuario == id)
+                .Select( p => new PersonasPusuario
+                {
+                    IdPersona = p.IdPersona,
+                    Nombre = p.Nombre,
+                    Telefono = p.Telefono,
+                    Direccion = p.Direccion,
+                    Cedula = p.Cedula,
+                    Provincia = p.Provincia.Nombre
+                }).ToListAsync();
+                   
+            if (!personas.Any())
                 return NoContent();
-            }
+
             return Ok(personas);
+           
         }
 
         [HttpGet("Prov")]
@@ -92,6 +87,7 @@ namespace Candidate.Controllers
                 Telefono = dto.Telefono,
                 Direccion = dto.Direccion,
                 Cedula = dto.Cedula,
+                Genero = dto.Genero,
                 IdProvincia = dto.IdProvincia,
                 IdUsuario = IdUsuario,
             };
@@ -150,6 +146,16 @@ namespace Candidate.Controllers
                 return StatusCode(500, "Error interno del servidor: " + ex.Message);
             }
 
+        }
+        [HttpGet("miembros-por-genero")]
+        public async Task<ActionResult> GetMiembrosPorGenero()
+        {
+            var total = await _dbcontext.Personas.Where(p => p.Borrado == "No").GroupBy(y => y.Genero).Select(g => new
+            {
+                genero = g.Key,
+                cantidad = g.Count(),
+            }).ToListAsync();
+            return Ok(total);
         }
 
         //Metodo para filtrar personas por su nombre
@@ -224,8 +230,6 @@ namespace Candidate.Controllers
             return Ok(new { message = "Exitosa" });
 
         }
-
-
         //Metodo para borrar los datos por su id
         [Authorize]
         [HttpDelete("{id}")]
