@@ -51,6 +51,7 @@ namespace Candidate.Controllers
                     Telefono = p.Telefono,
                     Direccion = p.Direccion,
                     Cedula = p.Cedula,
+                    Genero = p.Genero,
                     Provincia = p.Provincia.Nombre
                 }).ToListAsync();
                    
@@ -209,6 +210,7 @@ namespace Candidate.Controllers
             personaexiste.Telefono = person.Telefono;
             personaexiste.Direccion = person.Direccion;
             personaexiste.Cedula = person.Cedula;
+            personaexiste.Genero = person.Genero;
             personaexiste.IdProvincia = person.IdProvincia;
             await _dbcontext.SaveChangesAsync();
             return Ok();
