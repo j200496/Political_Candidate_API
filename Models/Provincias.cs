@@ -9,7 +9,7 @@ namespace Candidate.Models
         public string Nombre { get; set; } = "";
         public string Borrado { get; set; } = "No";
         public int Meta { get; set; }
-        public ICollection<Usuario_Provincia> UsuarioProvincias { get; set; } = new List<Usuario_Provincia>();
+        public ICollection<Usuario_Provincia> Usuario_Provincias { get; set; } = new List<Usuario_Provincia>();
 
     }
 }

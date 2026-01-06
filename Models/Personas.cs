@@ -12,10 +12,11 @@ namespace Candidate.Models
         public string Cedula { get; set; } = string.Empty;
         public char Genero { get; set;} 
         public string Borrado { get; set; } = "No";
-        [ForeignKey("Provincia")]
+
+       // [ForeignKey("Provincia")]
         public int IdProvincia { get; set; }
 
-        [ForeignKey("Usuario")]
+       // [ForeignKey("Usuario")]
         public int IdUsuario { get; set; }
         public Provincias Provincia { get; set; }
 

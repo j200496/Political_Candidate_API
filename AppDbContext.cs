@@ -18,15 +18,17 @@ namespace Candidate
             modelBuilder.Entity<Usuario_Provincia>()
      .HasKey(up => new { up.IdUsuario, up.IdProvincia });
 
-            modelBuilder.Entity<Usuario_Provincia>()
-                .HasOne(up => up.Usuario)
-                .WithMany(u => u.UsuarioProvincias)   
-                .HasForeignKey(up => up.IdUsuario);
+            modelBuilder.Entity<Personas>()
+         .HasOne(p => p.Provincia)
+         .WithMany()
+         .HasForeignKey(p => p.IdProvincia)
+         .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Usuario_Provincia>()
-                .HasOne(up => up.Provincia)
-                .WithMany(p => p.UsuarioProvincias)   
-                .HasForeignKey(up => up.IdProvincia);
+            modelBuilder.Entity<Personas>()
+                .HasOne(p => p.Usuario)
+                .WithMany()
+                .HasForeignKey(p => p.IdUsuario)
+                .OnDelete(DeleteBehavior.Restrict);
 
         }
 

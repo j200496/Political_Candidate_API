@@ -12,7 +12,7 @@ namespace Candidate.Models
 
         public string Borrado { get; set; } = "No";
 
-        public ICollection<Usuario_Provincia> UsuarioProvincias { get; set; } = new List<Usuario_Provincia>();
+        public ICollection<Usuario_Provincia> Usuario_Provincias { get; set; } = new List<Usuario_Provincia>();
 
     }
 }

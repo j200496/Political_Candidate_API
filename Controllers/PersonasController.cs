@@ -22,7 +22,7 @@ namespace Candidate.Controllers
             _dbcontext = dbcontext;
         }
         // Metodo para devolver la lista de personas donde borrado = No
-        [Authorize(Roles = "Administrador")]
+       // [Authorize(Roles = "Administrador")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Personas>>> GetPersonas()
         {
@@ -148,6 +148,7 @@ namespace Candidate.Controllers
             }
 
         }
+
         [HttpGet("miembros-por-genero")]
         public async Task<ActionResult> GetMiembrosPorGenero()
         {
